@@ -81,16 +81,18 @@ STATIC void SystemSetupClocking(void)
 void Board_Init(void)
 {
     /* chip related boot init here */
-	SystemSetupClocking();
+    SystemSetupClocking();
     // Read clock settings and update SystemCoreClock variable
     SystemCoreClockUpdate();
 
-	/* Enable I/OH SRAM (SRAM1) */
-	Chip_Clock_EnablePeriphClock(SYSCTL_CLOCK_RAM1);
+    /* Enable I/OH SRAM (SRAM1) */
+    Chip_Clock_EnablePeriphClock(SYSCTL_CLOCK_RAM1);
+    /* Enable IOCON clock */
+    Chip_Clock_EnablePeriphClock(SYSCTL_CLOCK_IOCON);
+    /* Initialize GPIO */
+    Chip_GPIO_Init(LPC_GPIO);
 
     /* board related boot init here */
-	/* Initialize GPIO */
-	Chip_GPIO_Init(LPC_GPIO);
 
     /* Sets up board pin muxing */
     Variant_Pins_Init();
